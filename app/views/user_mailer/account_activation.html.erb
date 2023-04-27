@@ -1,4 +1,4 @@
-          <h1>ここです！！</h1>
+          <h1>攻略サイトのメールはここです！！</h1>
 
      <p>こんにちは、<%= @user.name %>さん。</p>
 
@@ -7,3 +7,4 @@
    <p>下記リンクをクリックしてアカウントを有効化してください。</p>
 
 <%= link_to 'アカウント有効化', edit_account_activation_url(@user.activation_token, email: @user.email) , class: 'btn btn-primary' %>
+    
