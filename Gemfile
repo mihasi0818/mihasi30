@@ -12,7 +12,7 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'sprockets-rails'
 
 # Use postgresql as the database for Active Record
-#gem 'pg', '~> 1.1'
+
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
@@ -73,9 +73,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-group :production do
-  gem "pg"
-end
+
 gem 'semantic-ui-sass'
 gem 'jquery-rails'
 gem 'pry-rails'
@@ -86,4 +84,9 @@ gem 'pagy'
 gem 'kaminari'
 gem 'recaptcha'
 gem 'dotenv-rails'
-
+gem 'net-imap'
+gem 'net-pop'
+gem 'net-smtp'
+gem 'pg', '~> 1.3.0'
+gem 'puma_worker_killer'
+gem 'rails_12factor', group: :production
