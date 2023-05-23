@@ -15,24 +15,41 @@
     <%= render 'layouts/navigation' %>
       <%= render 'shared/flash_messages' %>
       <%= yield %>
+
+      <div class="footer bg-dark text-white">
       <footer>
         <div class="footer-container">
           <div class="copyright">
             &copy; 2023 Shanghai Moonton Technology Co., Ltd.
           </div>
-          <div class="source-links">
-            <a href="https://i.pinimg.com/originals/8a/09/6c/8a096c4c03da85acd5731083c2d57177.jpg" title="引用元1へ移動">
+            <!-- フッターコンテンツ -->
+            <a href="https://i.pinimg.com/originals/8a/09/6c/8a096c4c03da85acd5731083c2d57177.jpg" title="引用元1へ移動" style="color: rgb(68, 255, 0);">
               引用元1
               <i class="fa fa-external-link" aria-hidden="true"></i>
             </a>
-            <a href="https://i.pinimg.com/originals/2a/50/3b/2a503b05ae75cd9a3a149ce905250333.jpg" title="引用元2へ移動">
+            <a href="https://i.pinimg.com/originals/2a/50/3b/2a503b05ae75cd9a3a149ce905250333.jpg" title="引用元2へ移動" style="color: rgb(68, 255, 0);">
               引用元2
               <i class="fa fa-external-link" aria-hidden="true"></i>
             </a>
-          </div>
-        </div>
+            <a href="https://static.wikia.nocookie.net/mobile-legends/images/8/88/Joy_lore_1.png/revision/latest?cb=20230315084828" title="引用元3へ移動" style="color: rgb(68, 255, 0);">
+              引用元3
+              <i class="fa fa-external-link" aria-hidden="true"></i>
+            </a>
       </footer>
-      
+      <div class="inquiry">
+        <%= link_to "お問い合わせ", new_inquiry_path, style: "color:rgb(68, 255, 0);" %>
+
+    </div>
+    </div>
   </body>
 </html>
-
+<style>
+  a{
+    padding: 5px;
+  }
+  .inquiry{
+    display: flex;
+    justify-content: center;
+  }
+  
+</style>

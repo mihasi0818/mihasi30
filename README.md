@@ -1,4 +1,4 @@
-# 勉強中
+# 使用したスキル
 [![My Skills](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
 ![](https://img.shields.io/badge/-ruby%20v3.2.2%20-red)
 ![](https://img.shields.io/badge/-rails%20v7.0.4.3-redruby)

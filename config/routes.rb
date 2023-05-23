@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'inquiries/new'
+  get 'inquiries/create'
   get 'google_login_api/callback'
   get 'static_pages/before_login'
   get 'static_pages/after_login'
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   get"logout", to: "sessions#destroy"
   get 'account_activations/:id/edit', to: 'account_activations#edit', as: 'edit_account_activation'
-  
+
 
   get '/auth/google/callback', to: 'google_login#callback'
 post '/auth/google/callback', to: 'google_login#callback'
@@ -57,6 +59,12 @@ resources :posts do
   end
 end
 resources :google_login_api
+resources :inquiries, only: [:new, :create]
+resources :posts do
+  member do
+    get 'view_count'
+  end
+end
 
 end
 
