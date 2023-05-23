@@ -92,3 +92,7 @@ gem 'puma_worker_killer'
 gem 'rails_12factor', group: :production
 gem 'ransack'
 gem 'googleauth'
+
+group :development do
+  gem "rails-erd"
+end

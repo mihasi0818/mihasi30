@@ -1,4 +1,14 @@
 class Post < ApplicationRecord
+  def remaining_time
+    target_date = created_at + 50.days
+    remaining_seconds = (target_date - Time.current).to_i
+    {
+      days: remaining_seconds / (60 * 60 * 24),
+      hours: (remaining_seconds / (60 * 60)) % 24,
+      minutes: (remaining_seconds / 60) % 60,
+      seconds: remaining_seconds % 60
+    }
+  end
   scope :oldest_first, -> { order(created_at: :asc) }
   scope :most_liked, -> { joins(:likes).group(:id).order('COUNT(likes.id) DESC') }
   default_scope -> { order(created_at: :desc) }

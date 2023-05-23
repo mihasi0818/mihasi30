@@ -1,14 +1,10 @@
 <div>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+  
   <!-- ここにログイン後のページのコンテンツを追加する -->
-
-
-
 <div class="box">
   <p><%= link_to 'お知らせ', '/notifications' %></p>
+
   <h2>みんなで</h2>
   <h1>モバレ攻略サイト</h1>
     <% if current_user %>
@@ -26,21 +22,24 @@
   
     <p>本日の日付: <%= Date.current.strftime('%Y/%-m/%-d') %></p>
     <div class="count2">
-
-      <%= image_tag("S28_Skin_Tag.webp") %>
-<% if @remaining_days.present? && @remaining_days > 0 %>
-  <p>残り<%= @remaining_days %>日</p>
-<% else %>
-  <p>カウントダウンが終了しました</p>
-<% end %>
-
+<div class="countdown">
+      <div id="countdown">
+        <%= image_tag("S28_Skin_Tag.webp") %>
+        まで残り:
+        <span id="days" class="countdown-digit"><%= @remaining_time[:days] %></span> 日の
+        <span id="hours" class="countdown-digit"><%= @remaining_time[:hours] %></span> 時間
+      </div>
+    </div> 
     <p class="count">件数: <%= Post.count %></p>
   </div>
 </div>
-<%= form_with(url: posts_path, method: :get, local: true) do |form| %>
-  <%= form.text_field :search, placeholder: '検索キーワード' %>
-  <%= form.submit '検索' %>
-<% end %>
+
+<div class="see">
+  <%= form_with(url: posts_path, method: :get, local: true) do |form| %>
+    <%= form.text_field :search, placeholder: '検索キーワード', class: "search" %>
+        <%= form.submit '検索' %>
+  <% end %>
+</div>
 
 
 <!-- 並び替えセレクトボックス -->
@@ -58,11 +57,16 @@
       <tr>
         <th><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></th> 
         <th class="name"><div class="name">user名</div></th>
-        <td><div class="name"><% if current_user %>
-          <p class="user_name"><%= post.user.name %></p>
-        <% else %>
-          <p>ログアウト中</p>
-        <% end %></div></td>
+        <td>
+          <div class="name">
+            <% if current_user %>
+              <p class="user_name"><%= post.user.name %></p>
+            <% else %>
+              <p><%= post.user.name if post.user %></p>
+            <% end %>
+          </div>
+        </td>
+        
         <th><div class="size"><%= link_to "詳細", post, class: "size" %></div></th>
       </tr>
       <tr>
@@ -171,20 +175,49 @@
     </span>
   </nav>
   
-
-
-
-      
-    
-
       <% if logged_in? %>
     <%= link_to "さぁ投稿しよう!!", new_post_path, class: "button-link" %>
   <% else %>
     <%= link_to "ログイン後に投稿！！", login_path, class: "button-link" %>
   <% end %>
+  
+  
 </div>   
 
   <style>
+   
+  @media (max-width: 600px) {
+    input[type="text"] {
+    width: 260px;
+    height: 30Px;
+} 
+}
+@media (min-width: 610px) {
+  input[type="text"] {
+    width: 500px;
+    height: 30Px;
+} 
+  }
+   .see{
+    display: flex;
+    justify-content: center;
+}
+  .see {
+    text-align: center;
+  }
+ 
+  
+  .see input[type="submit"] {
+    width: 100px; /* 送信ボタンの幅を調整してください */
+    height: 1oopx; /* 送信ボタンの高さを調整してください */
+    font-size: 18px; /* 送信ボタンのフォントサイズを調整してください */
+  }
+  /*ここまで検索機能*/
+
+    .countdown{
+      background-color: pink;
+    }
+
     pre{
       color: #00ff15;
     }
@@ -291,6 +324,59 @@ display: flex;
   margin-top: -10px;
 }
 
+.countdown-digit {
+      display: inline-block;
+      transition: transform 0.5s ease-in-out;
+    }
   </style>
-  
-  
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var daysElement = document.getElementById('days');
+    var hoursElement = document.getElementById('hours');
+    var minutesElement = document.getElementById('minutes');
+    var secondsElement = document.getElementById('seconds');
+
+    function updateCountdown() {
+      var days = parseInt(daysElement.innerHTML);
+      var hours = parseInt(hoursElement.innerHTML);
+      var minutes = parseInt(minutesElement.innerHTML);
+      var seconds = parseInt(secondsElement.innerHTML);
+
+      if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+        return;
+      }
+
+      if (seconds > 0) {
+        seconds--;
+      } else {
+        if (minutes > 0) {
+          minutes--;
+          seconds = 59;
+        } else {
+          if (hours > 0) {
+            hours--;
+            minutes = 59;
+            seconds = 59;
+          } else {
+            if (days > 0) {
+              days--;
+              hours = 23;
+              minutes = 59;
+              seconds = 59;
+            }
+          }
+        }
+      }
+
+      daysElement.innerHTML = days;
+      hoursElement.innerHTML = hours;
+      minutesElement.innerHTML = minutes;
+      secondsElement.innerHTML = seconds;
+
+      setTimeout(updateCountdown, 1000);
+    }
+
+    setTimeout(updateCountdown, 1000);
+  });
+</script>

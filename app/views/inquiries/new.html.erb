@@ -1,0 +1,61 @@
+<!-- app/views/inquiries_mailer/new.html.erb -->
+<%= form_with(model: @inquiry, url: inquiries_path, class: "inquiry-form") do |form| %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :email %>
+  <%= form.email_field :email %>
+
+  <%= form.label :message %>
+  <%= form.text_area :message %>
+
+  <%= form.submit "送信" %>
+<% end %>
+
+<style>
+     body {
+              background-image: url(/images/grond/Joy_lore_1.webp);
+              background-size: cover;
+            }
+label{
+    color: rgb(0, 30, 255);
+    font-size: 30px;
+}
+
+/* app/assets/stylesheets/application.css */
+
+/* デスクトップ用スタイル */
+.inquiry-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.inquiry-form label,
+.inquiry-form input,
+.inquiry-form textarea,
+.inquiry-form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.inquiry-form button {
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* モバイル用スタイル */
+@media (max-width: 768px) {
+  .inquiry-form {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+</style>
