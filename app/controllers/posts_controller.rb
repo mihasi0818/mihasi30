@@ -8,13 +8,6 @@ class PostsController < ApplicationController
   def set_countdown_end_date
     @post.countdown_end_date = nil
   end
-
-  def paginate_posts
-    posts_to_paginate = @posts&.pluck(:id) || []
-    posts_to_paginate = Post.where(id: posts_to_paginate)
-    @pagy, @posts = pagy(posts_to_paginate.presence || Post.all, items: 10)
-  end
-
   def index
     order_by = params[:order_by] || ''
     @posts = case order_by
@@ -27,12 +20,9 @@ class PostsController < ApplicationController
              when 'likes_asc'
                Post.most_liked.order(likes_count: :asc)
              else
-               Post.newest_first
+               Post.all.order(created_at: :desc) # ここを修正
              end
-
-
-
-             # 名前検索
+  
              image_data = [
               { "name" => "火炎弾", "path" => "/images/skill/60746.webp" },
                 { "name" => "執行", "path" => "/images/skill/Execute.webp" },
@@ -195,22 +185,40 @@ class PostsController < ApplicationController
                               { "name" =>"フローラ(Floryn)","path"=>"/images/support/Hero1121-icon.webp"}
                                  ]
         
-        
+  
     if params[:search].present?
       search_term = params[:search].downcase
       @posts = @posts.select do |post|
         image_data.any? { |data| data["name"].downcase.include?(search_term) && (data["path"] == post.image_url1.to_s || data["path"] == post.image_url40.to_s) }
       end
-    end
-
-    
+    end  
     @post = Post.first
     @remaining_time = @post ? @post.remaining_time : { days: 0, hours: 0, minutes: 0, seconds: 0 }
     @image_data = image_data
+    paginate_posts # ページネーションの処理を追加
+
+  end
+  def paginate_posts
+    posts_to_paginate = @posts&.pluck(:id) || []
+    order_by = params[:order_by]
+    
+    case order_by
+    when 'created_at_desc'
+      posts_to_paginate = Post.where(id: posts_to_paginate).order(created_at: :desc)
+    when 'created_at_asc'
+      posts_to_paginate = Post.where(id: posts_to_paginate).order(created_at: :asc)
+    when 'likes_desc'
+      posts_to_paginate = Post.where(id: posts_to_paginate).order(likes_count: :desc)
+    when 'likes_asc'
+      posts_to_paginate = Post.where(id: posts_to_paginate).order(likes_count: :asc)
+    else
+      posts_to_paginate = Post.where(id: posts_to_paginate).order(created_at: :desc)
+    end
+    
+    @pagy, @posts = pagy(posts_to_paginate.presence || Post.all.order(created_at: :desc), items: 10)
   end
   
-    
-    
+  
   def new
     @post = Post.new
   end
