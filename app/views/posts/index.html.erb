@@ -43,8 +43,13 @@
 
 
 <!-- 並び替えセレクトボックス -->
+<%= link_to "作成日時（降順）", posts_path(order_by: 'created_at_desc') %>
+<%= link_to "作成日時（昇順）", posts_path(order_by: 'created_at_asc') %>
+<%= link_to "いいね数（昇順）", posts_path(order_by: 'likes_asc') %>
+
+<!-- 並び替えセレクトボックス -->
 <%= form_with(url: posts_path, method: :get, local: true) do |form| %>
-  <%= form.select :order_by, [['新しい順', 'created_at_desc'], ['古い順', 'created_at_asc'], ['いいねの多い順', 'likes_desc']], selected: params[:order_by], prompt: '並び替え' %>
+  <%= form.select :order_by, [['新しい順', 'created_at_desc'], ['古い順', 'created_at_asc'], ['いいねの多い順', 'likes_asc']], selected: params[:order_by], prompt: '並び替え' %>
   <%= form.submit '並び替え' %>
 <% end %>
 
