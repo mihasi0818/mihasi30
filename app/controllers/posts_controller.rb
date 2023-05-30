@@ -32,6 +32,8 @@ class PostsController < ApplicationController
                 { "name"=>"瞬間移動", "path" => "/images/skill/60747.webp" },
                 { "name" =>"回復の泉", "path" => "/images/skill/60742.webp" },
                 { "name" =>"石化", "path" => "/images/skill/60744.webp" },
+                { "name" =>"狩猟", "path" => "/images/skill/Retribution.webp" },
+
                 { "name"=>"アリス(Alice)", "path" => "/images/Tank/Hero041-icon.webp" },
                               { "name" =>"ティグラル", "path" => "/images/Tank/Hero061-icon.webp" },
                               { "name" =>"ガイ", "path" => "/images/Tank/Hero091-icon.webp" },
@@ -155,6 +157,7 @@ class PostsController < ApplicationController
                               { "name" =>"キャリー(Karrie)","path"=>"/images/hanter/Hero401-icon.webp"},
                               { "name" =>"エレシル(Lrithel) ","path"=>"/images/hanter/Hero431-icon.webp"},
                               { "name" =>"ラズリー(Lesley)","path"=>"/images/hanter/Hero531-icon.webp"},
+                              { "name" =>"不利イクシア(Ixia)","path"=> "/images/hanter/Hero1211-icon.webp"},
                               { "name"=>"ハナビ(Hanabi)","path"=> "/images/hanter/Hero601-icon.webp"},
                               { "name" =>"クラウド(Claude) ","path"=>"/images/hanter/Hero651-icon.webp"},
                               { "name" =>"ジミー(Kimmy)","path"=>"/images/hanter/Hero711-icon.webp"},
